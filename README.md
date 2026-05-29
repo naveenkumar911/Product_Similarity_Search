@@ -54,7 +54,11 @@ python -m venv .venv
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Run the one‑time pre‑computation to generate embeddings and metadata
+python precompute.py
 ```
+
 
 ---
 
@@ -62,13 +66,25 @@ pip install -r requirements.txt
 
 ```bash
 # Ensure the FAISS index is built (first run will generate it)
-python -c "import similarity; similarity.load_search_index()"
-
+# The pre‑computation step above already creates the embeddings and metadata.
 # Start the API
 uvicorn app:app --host 0.0.0.0 --port 8000
 ```
 
 Open your browser at <http://localhost:8000/docs> to explore the interactive Swagger UI.
+
+## Quick Test (optional)
+
+```bash
+# Health check
+curl http://localhost:8000/health
+
+# Find similar products (example)
+curl "http://localhost:8000/find_similar_products?product_id=26d41bdc1495de290bc8e6062d927729&num_similar=5"
+
+# Retrieve a product's details (replace with an ID from the previous result)
+curl "http://localhost:8000/products/<product_id>"
+```
 
 ---
 
