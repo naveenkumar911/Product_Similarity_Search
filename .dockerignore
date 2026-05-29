@@ -1,0 +1,12 @@
+.git
+.gitignore
+.idea
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+test_app.py
+README.md
+LICENSE
+Dockerfile
